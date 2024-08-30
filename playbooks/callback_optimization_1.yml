@@ -1,0 +1,31 @@
+---
+- name: Execution time optimization
+  hosts: webservers
+  become: true
+  tasks:
+
+    - name: Intalls required packages
+      ansible.builtin.dnf:
+        name: "{{ item }}"
+        state: latest
+      loop:
+          - httpd
+          - httpd-tools
+          - mod_ssl
+          - php
+          - php-mysqlnd
+
+    - name: Ensures serices are started
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Permit traffic for web server ports
+      ansible.posix.firewalld:
+        service: "{{ item }}"
+        permanent: true
+        state: enabled
+      loop:
+        - http
+        - https
