@@ -1,0 +1,11 @@
+---
+- name: Test default filter
+  hosts: servera.lab.local
+  become: true
+  tasks:
+    - name: Uses default value for variable
+      ansible.builtin.user:
+        name: jperez
+        shell: "{{ user_shell | default('/sbin/nologin') }}"
+        comment: "{{ user_comment | default(omit) }}"
+        

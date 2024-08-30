@@ -1,0 +1,16 @@
+---
+- name: Uses when keyword
+  hosts: webservers
+  become: true
+  tasks:
+    - name: Installs Apache on Debian systems
+      ansible.builtin.apt:
+        name: apache
+        state: latest
+      when: ansible_os_family == "Debian"
+
+    - name: Installs Apache on RHEL systems
+      ansible.builtin.dnf:
+        name: httpd
+        state: latest
+      when: ansible_os_family == "RedHat"

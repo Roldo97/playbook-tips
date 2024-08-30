@@ -1,0 +1,22 @@
+---
+- name: Tests a block structure
+  hosts: web01.lab.local
+  become: true
+  tasks:
+
+  - block:
+      - name: Check web site from web server
+        ansible.builtin.uri:
+          url: http://{{ ansible_fqdn }}
+          return_content: true
+        register: example_webpage
+        failed_when: example_webpage.status != 200
+        become: false
+    rescue:
+      - name: Restart web server
+        ansible.builtin.service:
+          name: httpd
+          state: restarted
+    always:
+      - debug:
+          msg: "Always executed, even if something fails!"

@@ -1,0 +1,11 @@
+---
+- name: Register usage
+  hosts: servera.lab.local
+  gather_facts: false
+  tasks:
+    - ansible.builtin.command:
+        cmd: whoami
+      register: command
+
+    - ansible.builtin.debug:
+        var: command['stdout']

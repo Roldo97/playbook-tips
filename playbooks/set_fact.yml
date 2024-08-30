@@ -1,0 +1,11 @@
+---
+- name: Test set_fact module
+  hosts: localhost
+  gather_facts: false
+  tasks:
+
+    - name: Creates a variable
+      ansible.builtin.set_fact:
+        my_var: "My variable value"
+
+    - ansible.builtin.debug: var=my_var

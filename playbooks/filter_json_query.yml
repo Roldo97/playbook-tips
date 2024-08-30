@@ -1,0 +1,23 @@
+- name: Test map filter
+  hosts: localhost
+  gather_facts: false
+  vars:
+    animals:
+      domestic:
+        dog:
+          - name: balto
+          - name: pompon
+        cat:
+          - name: guante
+      farm:
+        horse:
+          - name: spirit
+            age: 15
+          - name: cojo
+            age: 19
+  tasks:
+    - name: Manipulates data with map
+      ansible.builtin.debug:
+        msg:
+          - "{{ animals | json_query('domestic.dog[*].name') }}"
+          - "{{ animals | json_query('farm.horse[*].age') }}"

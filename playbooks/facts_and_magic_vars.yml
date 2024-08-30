@@ -1,0 +1,13 @@
+---
+- name: Tests facts and magic variables
+  hosts: all
+  become: true
+  tasks:
+
+  - name: Ensures that index.html has content
+    ansible.builtin.lineinfile:
+      path: /var/www/html/index.html
+      create: yes
+      line: "{{ hostvars[item]['ansible_facts']['fqdn'] }}"
+    when: inventory_hostname in groups['webservers']
+    loop: "{{ groups['webservers'] }}"

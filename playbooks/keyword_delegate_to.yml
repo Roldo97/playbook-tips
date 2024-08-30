@@ -1,0 +1,11 @@
+---
+- name: Uses delegate_to keyword
+  hosts: servera.lab.local
+  tasks:
+    - name: Test connectivity to web server from localhost
+      ansible.builtin.uri:
+        url: http://{{ ansible_fqdn }}
+        return_content: true
+      register: webpage
+      failed_when: webpage.status != 200
+      delegate_to: localhost

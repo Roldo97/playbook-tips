@@ -1,0 +1,10 @@
+- name: Test ipaddr filter
+  hosts: servera.lab.local
+  tasks:
+    - name: Performs network address validations
+      ansible.builtin.debug:
+        msg:
+          - "Check that a network range is valid: (net): {{ '192.168.0.0/33' | ipaddr('net') }}"
+          - "Returns CIDR format for an address: {{ '192.168.0.1' | ipaddr('host') }}"
+          - "Returns broadcast address: {{ '192.168.1.12/24' | ipaddr('broadcast') }}"
+          - "Check network lenght: {{ '192.168.6.0/29' | ipaddr('size') }}"

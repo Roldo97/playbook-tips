@@ -1,0 +1,15 @@
+- name: Test map filter
+  hosts: localhost
+  gather_facts: false
+  vars:
+    animals:
+      - name: balto
+      - name: pompon
+      - name: guante
+  tasks:
+    - name: Manipulates data with map
+      ansible.builtin.debug:
+        msg:
+          - "{{ animals | map(attribute='name') }}"
+          - "{{ animals | map(attribute='name') | map('regex_replace', '^', 'pet_') }}"
+          - "{{ animals | map(attribute='name') | map('upper') }}"

@@ -1,0 +1,7 @@
+# Ejemplo de inventario en formato INI
+
+dbserver.lab.local
+
+[webservers]
+servera.lab.local
+serverb.lab.local

@@ -1,0 +1,21 @@
+---
+- name: Test tags
+  hosts: localhost
+  gather_facts: false
+  tasks:
+
+    - ansible.builtin.debug:
+        msg: "I will always be executed."
+      tags:
+        - always
+
+    - ansible.builtin.debug:
+        msg: "Run only when 'tag1' or none is specified."
+      tags:
+        - tag1
+
+    - ansible.builtin.debug:
+        msg: "I won't run unless 'tag2' is specified"
+      tags:
+        - never
+        - tag2

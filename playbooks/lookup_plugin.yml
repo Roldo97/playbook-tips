@@ -1,0 +1,11 @@
+---
+- name: Test lookup
+  hosts: localhost
+  gather_facts: false
+  tasks:
+
+    - ansible.builtin.debug:
+        msg:
+          - "{{ lookup('file', '/etc/redhat-release') }}"
+          - "{{ lookup('dig', 'redhat.com') }}"
+          - "{{ lookup('url', 'http://ni.cl') }}"
